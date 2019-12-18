@@ -8,43 +8,31 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Beli</title>
-    <style>
-        .checkbox-xl .custom-control-label::before, 
-        .checkbox-xl .custom-control-label::after {
-        top: 1.2rem;
-        width: 1.85rem;
-        height: 1.85rem;
-        }
-
-        .checkbox-xl .custom-control-label {
-        padding-top: 23px;
-        padding-left: 10px;
-        margin: 15px;
-        }
-    </style>
+    <title>register</title>
 </head>
 <body>
     
-    
-    <%- include ('./partials/header') %>
-    <!-- <button>Add form</button> -->
-    <div class="container" style="margin-top: 30px;">
-            <div class="row">
-                <div class="col-sm">
-                    <!-- One of three columns -->
-                </div>
-                <div class="col-sm">
-                        <h2>jadilah</h2>
 
-                        <img src="<%= resolve.url%>" alt="Smiley face" height="200" width="200">
-                        <h2><%= resolve.name%></h2>
-                        <h3>RP: <%= resolve.price%></h3>
+        <%- include ('./partials/header') %>
+      <!-- <button>Add form</button> -->
+      <div class="container" style="margin-top: 30px;">
+        <div class="row">
+          <div class="col-sm">
+            <!-- One of three columns -->
+          </div>
+          <div class="col-sm">
               <!-- action ke app.js => router -->
-              <form method="POST" action="/user/select/<%= id%>/beli/<%= resolve.id%>">
-                
-                <a href="/user/select/<%= id%>" type="button" class="btn" value="submit">back</a>
-                  <button type="submit" class="btn btn-primary" value="submit">beli laa</button>
+              <form method="POST" action="/user/<%= id%>/edit">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" > Name</label>
+                  <input name="name" class="form-control" value="<%=resolve.name%>"  placeholder="<%= resolve.name%> ">
+                </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">  E-mail  </label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=resolve.email%>"  placeholder="<%= resolve.email%>" name="email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  </div>
+                  <button type="submit" class="btn btn-primary" value="submit">Submit</button>
                 </form>
           </div>
           <div class="col-sm">
@@ -53,7 +41,6 @@
         </div>
       </div>
             </div>
-            
 
     
     <!-- Optional JavaScript -->
