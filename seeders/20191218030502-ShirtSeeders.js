@@ -50,7 +50,7 @@ module.exports = {
           url: 'https://images.news18.com/ibnlive/uploads/2019/08/Sports-61.png'
         },
         {
-          name: 'baju',
+          name: 'baju cubitus',
           price: 7000,
           url: 'https://s4.bukalapak.com/img/9521558972/w-1000/kaos_anak_cubitus_original.jpg'
         },
