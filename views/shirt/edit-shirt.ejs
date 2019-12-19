@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        
-        <title>Apparel List</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <title>Edit Apparel</title>
         <style>
         img {
             width: 100px;
@@ -13,7 +13,7 @@
         }
         </style>
     </head>
-    <body>
+    <body class="bg-b">
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">Navbar</a>
@@ -33,27 +33,29 @@
                 <div class="row">
                   <div class="col">
                   </div>
-                  <div class="col-6">
-                    <br><h2 class="text-center">Edit Clothes</h2>
-                    <a href="/shirt">Return to Apparel List</a>
-                    <form action="/shirt/edit-shirt/<%= id %>" method="POST">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name">
-                            <small id="nameHelp" class="form-text text-muted">Previous : <%= shirts.name %></small>
+                  <div class="col-5">
+                        <br><br>
+                        <div class="bg card card-signup z-depth-0">
+                          <div class="card-body text-center">
+                              <h2 class="text-center text-light">Edit Clothes</h2>
+                              <a href="/shirt" class="text-light">Return to Apparel List</a>
+                              <form action="/shirt/edit-shirt/<%= id %>" method="POST">
+                                  <div class="form-group">
+                                      <label for="name" class="text-light">Name</label>
+                                      <input type="text" class="form-control" id="name" name="name" value="<%= shirts.name %>">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="price" class="text-light">Price</label>
+                                      <input type="text" class="form-control" id="price" name="price" value="<%= shirts.price %>">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="url" class="text-light">Url</label>
+                                      <input type="text" class="form-control" id="url" name="url" value="<%= shirts.url %>">
+                                  </div>
+                                  <button type="submit" class="btn btn-primary">Submit</button>
+                              </form>
+                          </div>
                         </div>
-                        <div class="form-group">
-                            <label for="price">Price</label>
-                            <input type="text" class="form-control" id="price" name="price">
-                            <small id="priceHelp" class="form-text text-muted">Previous : <%= shirts.price %></small>
-                        </div>
-                        <div class="form-group">
-                            <label for="url">Url</label>
-                            <input type="text" class="form-control" id="url" name="url">
-                            <small id="priceHelp" class="form-text text-muted">Previous : <%= shirts.url %></small>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
                   </div>
                   <div class="col">
                   </div>

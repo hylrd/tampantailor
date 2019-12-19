@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        
+        <link rel="stylesheet" href="/css/style.css">
+
         <title>Apparel List</title>
         <style>
         img {
@@ -13,7 +14,7 @@
         }
         </style>
     </head>
-    <body>
+    <body class="bg-a">
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">Navbar</a>
@@ -29,28 +30,32 @@
                 </div>
             </nav>
         </header>
-    <main class="p-3 mb-2 bg-info text-white">
+    <main class="p-3 mb-2 text-dark">
         <div class="container">
             <div class="row">
             <div class="col">
             </div>
             <div class="col-6">
-                <br><h2 class="text-center">Apparel List</h2>
-                <form action="/shirt" method="POST">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                <div class=" card card-signup z-depth-0">
+                    <div class="card-body text-center">
+                            <br><h2 class="text-center">Apparel List</h2>
+                            <form action="/shirt" method="POST">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price</label>
+                                    <input type="text" class="form-control" id="price" name="price">
+                                </div>
+                                <div class="form-group">
+                                    <label for="url">Url</label>
+                                    <input type="text" class="form-control" id="url" name="url"> 
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
                     </div>
-                    <div class="form-group">
-                        <label for="price">Price</label>
-                        <input type="text" class="form-control" id="price" name="price">
-                    </div>
-                    <div class="form-group">
-                        <label for="url">Url</label>
-                        <input type="text" class="form-control" id="url" name="url"> 
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                </div>
                 <br><br>
                 <table class="table table-light">
                         <thead class="thead-dark">

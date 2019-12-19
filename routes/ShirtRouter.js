@@ -6,10 +6,14 @@ const User = Model.User
 const UserShirt = Model.UserShirt
 const numHelper = require('../helpers/ordinalNumber.js') 
 
-router.get('/', (req, res) => {
+router.get('/', function(req, res){
     Shirt.findAll()
-        .then(shirts => {
-            res.render('./shirt/shirt.ejs', {shirts})
+        .then(function(shirts){
+            return Shirt.toCurrencyFormat(shirts)
+        })
+        .then(function(result){
+            // res.send(result)
+            res.render('./shirt/shirt.ejs', {shirts : result})
         })
         .catch(err => {
             res.send(err)
