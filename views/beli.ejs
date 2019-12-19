@@ -39,12 +39,13 @@
 
                         <img src="<%= resolve.url%>" alt="Smiley face" height="200" width="200">
                         <h2><%= resolve.name%></h2>
+                        <%= %>
                         <h3>RP: <%= resolve.price%></h3>
               <!-- action ke app.js => router -->
-              <form method="POST" action="/user/select/<%= id%>/beli/<%= resolve.id%>">
+              <form method="POST" action="/user/select/beli">
                 
-                <a href="/user/select/<%= id%>" type="button" class="btn" value="submit">back</a>
-                  <button type="submit" class="btn btn-primary" value="submit">beli laa</button>
+                <a href="/user/select/" type="button" class="btn" value="submit">back</a>
+                  <button type="submit" class="btn btn-primary" value="submit">add to cart</button>
                 </form>
           </div>
           <div class="col-sm">
