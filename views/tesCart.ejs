@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Apparel List</title>
+        <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                  </ul>
+                </div>
+            </nav>
+        </header>
+    <main class="p-3 mb-2 bg-info text-white">
+        
+<div class="px-4 px-lg-0">
+        <!-- For demo purpose -->
+        <div class="container text-white py-5 text-center">
+          <h1 class="display-4"><%=user.name%> shopping cart</h1>
+          <p class="lead mb-0">This Is Your Item of Destiny</p>
+          <p class="lead">Choosen by <u>Tampan Tailor</u>
+          </p>
+        </div>
+        <!-- End -->
+      
+        <div class="pb-5">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+      
+                <!-- Shopping cart table -->
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="border-0 bg-light">
+                          <div class="p-2 px-3 text-uppercase">Product</div>
+                        </th>
+                        <th scope="col" class="border-0 bg-light">
+                          <div class="py-2 text-uppercase">Price</div>
+                        </th>
+                        <th scope="col" class="border-0 bg-light">
+                          <div class="py-2 text-uppercase">Remove</div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% user.Shirts.forEach((data, index) => { %>
+                          <tr>
+                            <th scope="row" class="border-0">
+                              <div class="p-2">
+                                <img src="<%= data.url %>" alt="" width="70" class="img-fluid rounded shadow-sm">
+                                <div class="ml-3 d-inline-block align-middle">
+                                  <h5 class="mb-0"> <%= data.name %></h5><span class="text-muted font-weight-normal font-italic d-block">Your <%- numHelper(index+1)  %> Item</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td class="border-0 align-middle"><strong>Rp <%= (data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %></strong></td>
+                            <td class="border-0 align-middle"><a href="/shirt/cart/delete/<%= data.id %>" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                          </tr>
+                        <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- End -->
+              </div>
+            </div>
+      
+            <div class="row py-5 p-4 bg-white rounded shadow-sm">
+              <div class="col-lg-6">
+                <!-- <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
+                <div class="p-4">
+                  <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
+                  <div class="input-group mb-4 border rounded-pill p-2">
+                    <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0">
+                    <div class="input-group-append border-0">
+                      <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply coupon</button>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="bg-light text-dark rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions for seller</div>
+                <div class="p-4">
+                  <p class="text-dark font-italic mb-4">If you have some information for the seller you can leave them in the box below</p>
+                  <textarea name="" cols="30" rows="2" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="bg-light text-dark rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+                <div class="p-4">
+                    <% let totalPrice = 0 %>
+                    <% for(let i = 0 ; i < user.Shirts.length; i++){ %>
+                        <% totalPrice += Number(user.Shirts[i].price) %>
+                    <% } %>
+                  <ul class="list-unstyled mb-4">
+                    <li class="d-flex justify-content-between py-3 border-bottom text-dark"><strong class="text-muted">Order Subtotal </strong><strong>Rp <%= (totalPrice).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %></strong></li>
+                    <li class="d-flex justify-content-between py-3 border-bottom text-dark"><strong class="text-muted">Tax</strong><strong>Rp <%= (totalPrice*10/10).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %></strong></li>
+                    <li class="d-flex justify-content-between py-3 border-bottom text-dark"><strong class="text-muted">Total</strong>
+                      <h5 class="font-weight-bold">Rp <%= (totalPrice+totalPrice*1/10).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %></h5>
+                    </li>
+                  </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
+                </div>
+              </div>
+            </div>
+      
+          </div>
+        </div>
+      </div>
+    </main>            
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>
