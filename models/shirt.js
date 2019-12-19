@@ -1,7 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
-  class Shirt extends Model{}
+  class Shirt extends Model{
+
+    static priceComma(uang){
+      var num = new Number(uang).toLocaleString("id-ID");
+      return num
+    }
+  }
   Shirt.init({
     name: DataTypes.STRING,
     price: DataTypes.INTEGER,

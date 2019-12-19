@@ -8,6 +8,8 @@ const ShirtModel = Model.Shirt
 const UserShirtModel = Model.UserShirt
 var nodemailer = require('nodemailer');
 const isLoggedin = require('./middlewares/isLoggedin')
+const numHelper = require('../helpers/ordinalNumber.js') 
+
 
 var transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -17,37 +19,106 @@ var transporter = nodemailer.createTransport({
        }
    });
 
+
+   router.get('/checkout', isLoggedin, function(req, res){
+    //    res.send(req.session)
+    UserModel.findAll({
+        include : ShirtModel,
+        where:{
+            id: req.session.user.id
+        }
+    })
+    .then(baju =>{
+        // res.send(baju)
+        const mailOptions = {
+                from: 'kikokartiko@gmail.com', // sender address
+                to: `${baju[0].email}`, // list of receivers
+                subject: `thanks udah beli`, // Subject line
+                
+                html: baju[0].Shirts.forEach((data, index) =>{
+                   `anda membeli ${data.name}`
+                })
+                // plain text body
+               };
+    
+               transporter.sendMail(mailOptions, function (err, info) {
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(info);
+                    res.send(info)
+                }    
+             });
+            res.render('checkout.ejs')
+    })
+    .catch(reject =>{
+        res.send(reject)
+    })
+       
+   })
+
+   router.get('/cart', isLoggedin,(req, res) => {
+    UserModel.findAll({
+        include : ShirtModel,
+        where:{
+            id: req.session.user.id
+        }
+    })
+        .then(users => {
+            // res.send(users[0])
+            res.render('tesCart.ejs', {user : users[0], numHelper})
+        })
+        .catch(err => {
+            res.send(err)
+        })
+})
+    router.get('/cart/delete/:id', (req, res) => {
+    UserShirtModel.destroy({
+        where : {
+            ShirtId : req.params.id
+        }
+    })
+        .then(result => {
+            res.redirect('/user/cart')
+        })
+        .catch(err => {
+            res.send(err)
+        })
+})
+
+
    
    
-   
-   router.post('/:id/edit', function(req, res){
-       let id = req.params.id
+   router.post('/edit', isLoggedin, function(req, res){
+    //    let id = req.params.id
+    // res.send(req.session)
+       let pk = req.session.user.id
        UserModel.update(req.body,{
            where:{
-               id: id
+               id: pk
             }
         })
         .then (resolve => {
             // res.send(resolve)
             
             // send email 
-            res.redirect(`/user/select/${id}`)
+            res.redirect(`/user/select`)
         })
         .catch(reject => {
             res.send(reject)
         })
     })
     
-    router.get('/:id/edit', function(req, res){
-        let id = req.params.id
+    router.get('/edit', isLoggedin, function(req, res){
+        let pk = req.session.user.id
         UserModel.findOne({
             where:{
-                id:req.params.id
+                id:pk
             }
         })
         .then(resolve =>{
             // res.send(resolve)
-            res.render('editUser.ejs', {resolve, id})
+            res.render('editUser.ejs', {resolve, pk})
         })
         .catch(reject =>{
             res.send(reject)
@@ -80,14 +151,15 @@ router.post('/select/beli/', isLoggedin, function(req, res){
             ShirtId : user.ShirtId
         }
 
-        console.log(obj, '>>>>>>>>>>>')
+        // console.log(obj, '>>>>>>>>>>>')
 
         UserShirtModel.create(
             obj
         )
         .then(resolve =>{
             // baju = resolve
-            res.send(resolve)
+            // res.send(resolve)
+            res.redirect('/user/cart')
             // res.render('beli.ejs', {resolve})
             // return UserModel.findOne({where:{ id: iduser}})
         })
@@ -96,20 +168,7 @@ router.post('/select/beli/', isLoggedin, function(req, res){
         })
         // .then(userdata =>{
             // res.send(baju)
-            // const mailOptions = {
-            //     from: 'kikokartiko@gmail.com', // sender address
-            //     to: `${userdata.email}`, // list of receivers
-            //     subject: `anda membeli ${baju.name} seharga ${baju.price}`, // Subject line
-            //     html: '<p>mantap</p>'// plain text body
-            //    };
-
-            //    transporter.sendMail(mailOptions, function (err, info) {
-            //     if(err)
-            //       console.log(err)
-            //     else
-            //       console.log(info);
-            //       res.send(info)
-            //  });
+            //
         // })
 })
 
@@ -133,11 +192,11 @@ router.get('/select/beli', isLoggedin, function(req, res){
 })
 
 router.post('/select', isLoggedin, function(req, res){
-    // res.send(req.body)
+    // res.send('masuk')
     let id = req.params.id
+    res.redirect('/user/select/beli')
     // res.send(id)
     // res.redirect(`user/select/${id}/beli`, {id: req.params.id})
-    res.redirect('/user/select/beli')
 
     // let pk = Math.floor(Math.random() * 10) + 1; 
 
@@ -182,11 +241,15 @@ router.post('/login', function(req, res){
             let check = bcrypt.compareSync(req.body.password, resolve.password);
             // console.log(req.body.password)
             // console.log(check)
-            req.session.user = resolve
-            let id = req.session.user.id 
-
-            // res.send(req.session)
-            res.redirect(`/user/select`)
+            if(check){
+                req.session.user = resolve
+                let id = req.session.user.id 
+    
+                // res.send(req.session)
+                res.redirect(`/user/select`)
+            }else{
+                res.send('salah')
+            }
         }
     })
     .catch(reject =>{
@@ -204,8 +267,10 @@ router.post('/', function(req, res){
     )
     .then(resolve=>{
         // res.send(resolve)
-        id = resolve.id
-        res.redirect(`user/select/${id}`)
+        // id = resolve.id
+        req.session.user = resolve
+        // let id = req.session.user.id 
+        res.redirect('/user/select')
         //prefix /user use slash
     })
     .catch(reject =>{

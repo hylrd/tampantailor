@@ -67,30 +67,30 @@ router.get('/delete/:id', (req, res) => {
         })
 })
 
-router.get('/cart', (req, res) => {
-    User.findAll({
-        include : Shirt
-    })
-        .then(users => {
-            // res.send(users[0])
-            res.render('tesCart.ejs', {user : users[0], numHelper})
-        })
-        .catch(err => {
-            res.send(err)
-        })
-})
-router.get('/cart/delete/:id', (req, res) => {
-    UserShirt.destroy({
-        where : {
-            ShirtId : req.params.id
-        }
-    })
-        .then(result => {
-            res.redirect('/shirt/cart')
-        })
-        .catch(err => {
-            res.send(err)
-        })
-})
+// router.get('/cart', (req, res) => {
+//     User.findAll({
+//         include : Shirt
+//     })
+//         .then(users => {
+//             // res.send(users[0])
+//             res.render('tesCart.ejs', {user : users[0], numHelper})
+//         })
+//         .catch(err => {
+//             res.send(err)
+//         })
+// })
+// router.get('/cart/delete/:id', (req, res) => {
+//     UserShirt.destroy({
+//         where : {
+//             ShirtId : req.params.id
+//         }
+//     })
+//         .then(result => {
+//             res.redirect('/shirt/cart')
+//         })
+//         .catch(err => {
+//             res.send(err)
+//         })
+// })
 
 module.exports = router
