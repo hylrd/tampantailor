@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>register</title>
+</head>
+<body>
+    
+
+        <%- include ('./partials/header') %>
+      <!-- <button>Add form</button> -->
+      <div class="container" style="margin-top: 30px;">
+        <div class="row">
+          <div class="col-sm">
+            <!-- One of three columns -->
+          </div>
+          <div class="col-sm">
+              <!-- action ke app.js => router -->
+              <form method="POST" action="/user/<%= id%>/edit">
+                <div class="form-group">
+                  <label for="exampleInputPassword1" > Name</label>
+                  <input name="name" class="form-control" value="<%=resolve.name%>"  placeholder="<%= resolve.name%> ">
+                </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">  E-mail  </label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=resolve.email%>"  placeholder="<%= resolve.email%>" name="email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  </div>
+                  <button type="submit" class="btn btn-primary" value="submit">Submit</button>
+                </form>
+          </div>
+          <div class="col-sm">
+            <!-- One of three columns -->
+          </div>
+        </div>
+      </div>
+            </div>
+
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+        function deletefunction(id) {
+          var txt;
+          if (confirm("are you sure?")) {
+            const xhr = new XMLHttpRequest(); // ajax http request
+            xhr.open("POST", `http://localhost:3000/teachers/delete/${id}`);
+            xhr.send();
+            txt = "YES";
+          } else {
+            txt = "NO";
+          }
+          document.getElementById("demo").innerHTML = txt;
+        }
+        </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
